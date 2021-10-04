@@ -31,7 +31,7 @@ const cadastrarUsuario = async (req, res) => {
         await query("insert into usuario (nome, email, senha, nome_loja) values ($1, $2, $3, $4)", [nome,email, senhaCriptografada, nome_loja]);
         
     } catch (error) {
-        res.status(400).json(error.message)
+        res.status(400).json({mensagem: error.message})
     }
     
     return res.status(201).json()

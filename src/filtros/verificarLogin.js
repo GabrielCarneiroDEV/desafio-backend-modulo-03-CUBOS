@@ -6,7 +6,7 @@ const verificarLogin = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-    return res.status(404).json("Token não informado.");
+    return res.status(404).json({mensagem:"Token não informado."});
     }
 
     try {
