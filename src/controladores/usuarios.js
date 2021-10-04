@@ -1,6 +1,7 @@
 
 const getUsuario = async (req, res) => {
-    res.json(req.usuario)
+    const {id, nome, nome_loja, email} = req.usuario;
+    return res.json({id, nome, nome_loja, email});
 }
 
 

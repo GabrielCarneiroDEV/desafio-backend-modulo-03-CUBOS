@@ -24,7 +24,27 @@ const validarLogin = (dadosLogin, usuarioEncontrado) => {
     }
 }
 
+const validarProdutos = (produto) => {
+    if(!produto.nome){
+        return ({mensagem: "O nome do produto deve ser informado."});
+    }
+    if(!produto.quantidade){
+        return ({mensagem: "A quantidade do produto deve ser informada."});
+    }
+    if(!produto.preco){
+        return ({mensagem: "O preço do produto deve ser informado."});
+    }
+    if(!produto.descricao){
+        return ({mensagem: "A descrição do produto deve ser informada."});
+    }
+    if(produto.quantidade <= 0){
+        return ({mensagem: "A quantidade do produto deve ser maior que zero."});
+    }
+
+}
+
 module.exports = {
     validarCadastro,
-    validarLogin
+    validarLogin,
+    validarProdutos
 }
