@@ -11,7 +11,6 @@ const rotas = express();
 
 
 
-rotas.get('/produtos', produtos.listarProdutos);
 
 
 
@@ -23,14 +22,12 @@ rotas.post('/login', login.login);
 
 rotas.use(verificarLogin);
 rotas.get('/usuario', getUsuario);
-rotas.use(verificarLogin).put('/usuario', atualizarUsuario.atualizarUsuario)
+
+rotas.put('/usuario', atualizarUsuario.atualizarUsuario)
 
 
-
+rotas.get('/produtos', produtos.listarProdutos);
 rotas.post('/produtos', cadastrarProdutos.cadastrarProduto);
-
-
-
 
 rotas.get('/produtos/:id', produtos.obterProduto);
 

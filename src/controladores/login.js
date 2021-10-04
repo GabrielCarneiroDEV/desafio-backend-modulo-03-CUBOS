@@ -39,7 +39,7 @@ const login = async (req, res) =>{
             nome:usuario.nome,
             nome_loja:usuario.nome_loja,
             email:usuario.email
-            },jwtSecret, {expiresIn: '1h'
+            },jwtSecret, {expiresIn: '8h'
         });
         
       
