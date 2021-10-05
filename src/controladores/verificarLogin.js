@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../jwt_secret');
+const jwtSecret = require('./jwt_secret');
 const { query } = require('../conexao')
 
 const verificarLogin = async (req, res, next) => {

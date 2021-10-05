@@ -3,6 +3,7 @@ const { query } = require("../conexao");
 const getUsuario = async (req, res) => {
 
     const { id } = req.usuario;
+    console.log(id)
 
     try {
 
