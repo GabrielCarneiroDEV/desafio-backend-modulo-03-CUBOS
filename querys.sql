@@ -13,7 +13,7 @@ CREATE TABLE produtos (
   usuario_id INT REFERENCES usuario(id) NOT NULL,
   nome TEXT NOT NULL,
   quantidade INT NOT NULL,
-  categoria TEXT NOT,
+  categoria TEXT,
   preco INT NOT NULL,
   descricao TEXT NOT NULL,
   imagem TEXT
