@@ -16,7 +16,8 @@ const verificarLogin = async (req, res, next) => {
      
         const usuario = jwt.verify(token, jwtSecret);
 
-        const { rowCount } = await query('select * from usuario where id = $1', [usuario.id]);
+        const { rowCount } = await query('select * from usuarios where id = $1', [usuario.id]);
+        console.log(usuario.id)
 
    
 

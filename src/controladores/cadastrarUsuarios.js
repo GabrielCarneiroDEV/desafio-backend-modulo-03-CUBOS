@@ -17,7 +17,7 @@ const cadastrarUsuario = async (req, res) => {
     }
 
     try {
-        const usuario = await query("select * from usuario where email = $1", [email]);
+        const usuario = await query("select * from usuarios where email = $1", [email]);
 
         if(usuario.rowCount > 0){
 
@@ -26,7 +26,7 @@ const cadastrarUsuario = async (req, res) => {
 
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        await query("insert into usuario (nome, email, senha, nome_loja) values ($1, $2, $3, $4)", [nome,email, senhaCriptografada, nome_loja]);
+        await query("insert into usuarios (nome, email, senha, nome_loja) values ($1, $2, $3, $4)", [nome,email, senhaCriptografada, nome_loja]);
         
     } catch (error) {
         res.status(400).json({mensagem: error.message});

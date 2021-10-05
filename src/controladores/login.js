@@ -12,7 +12,7 @@ const login = async (req, res) =>{
 
     try {
 
-        const {rows, rowCount} = await    query('select * from usuario where email = $1', [email]);
+        const {rows, rowCount} = await query('select * from usuarios where email = $1', [email]);
 
         const erro = validarLogin(req.body, rowCount);
 
@@ -28,15 +28,12 @@ const login = async (req, res) =>{
 
         if(!senhaVerificada){
 
-            return res.status(400).json({mensagem:"Usuário e/ou senha inválido(s)."});
+            return res.status(403).json({mensagem:"Usuário e/ou senha inválido(s)."});
         }
 
         const token = jwt.sign({
             id:usuario.id,
-            nome:usuario.nome,
-            nome_loja:usuario.nome_loja,
-            email:usuario.email
-            },jwtSecret, {expiresIn: '8h'
+            },jwtSecret, {expiresIn: '24h'
         });
         
       
