@@ -6,7 +6,7 @@ const getUsuario = async (req, res) => {
 
     try {
 
-        const usuario = await query('select id, nome, nome_loja, email from usuario where id = $1', [id]);
+        const usuario = await query('select id, nome, email, nome_loja from usuario where id = $1', [id]);
         console.log(usuario.rows)
 
         return res.json(usuario.rows[0]);

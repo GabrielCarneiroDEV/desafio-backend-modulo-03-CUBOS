@@ -17,10 +17,21 @@ const atualizarProduto = async (req, res) => {
 
     try {
 
-        const {rows} = await query(' select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
+        const verificarProduto = await query('select * from produtos where id = $1', [id]);
+        if(verificarProduto.rowCount === 0){
 
+            return res.status(404).json({mensagem:"Produto não encontrado"});
 
-        const { categoria: categoriaProduto, imagem: imagemProduto } = rows[0]
+        }
+
+        const produto = await query(' select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
+
+        if(produto.rowCount === 0){
+            return res.status(401).json({mensagem: "Você não tem autorização para modificar o produto."})
+        }
+
+        const { categoria: categoriaProduto, imagem: imagemProduto } = produto.rows[0];
+
         const produtoAtualizado = await query('update produtos set nome = $1, quantidade = $2, categoria = $3, preco = $4, descricao = $5, imagem =$6 where id = $7 and usuario_id = $8', [nome, quantidade, categoria ??categoriaProduto, preco, descricao, imagem ?? imagemProduto, id, usuario_id]);
 
        
