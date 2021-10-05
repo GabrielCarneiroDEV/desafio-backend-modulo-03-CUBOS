@@ -11,7 +11,7 @@ const atualizarUsuario = async (req, res) => {
     const erro = validarCadastro(req.body);
 
     if(erro){
-        return res.json(erro)
+        return res.status(400).json(erro)
     }
 
 
