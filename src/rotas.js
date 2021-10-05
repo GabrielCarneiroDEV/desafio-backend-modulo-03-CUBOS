@@ -7,7 +7,7 @@ const cadastrarProdutos = require('./controladores/cadastrarProdutos');
 const atualizarProdutos = require('./controladores/atualizarProduto');
 const excluirProdutos = require('./controladores/excluirProdutos');
 const { getUsuario } = require('./controladores/usuarios');
-const { verificarLogin } = require('./filtros/verificarLogin');
+const { verificarLogin } = require('./controladores/verificarLogin');
 const rotas = express();
 
 
