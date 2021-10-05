@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../jwt_secret');
+const jwtSecret = require('./jwt_secret');
 const { query } = require('../conexao');
 const { validarLogin } = require('./validacao.js');
 
