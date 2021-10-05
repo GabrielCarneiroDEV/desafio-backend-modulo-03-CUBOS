@@ -22,7 +22,7 @@ const atualizarProduto = async (req, res) => {
 
         if(verificarProduto.rowCount === 0){
 
-            return res.status(404).json({mensagem:"Produto não encontrado"});
+            return res.status(404).json({mensagem: "Produto não encontrado"});
 
         }
 
