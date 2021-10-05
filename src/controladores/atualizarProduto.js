@@ -26,9 +26,9 @@ const atualizarProduto = async (req, res) => {
 
         }
 
-        const { id: usuario_id } = req.usuario;
+        const {usuario} = req;
         
-        const produto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
+        const produto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario.id]);
 
         if(produto.rowCount === 0){
             return res.status(401).json({mensagem: "Você não tem autorização para modificar o produto."});
@@ -36,7 +36,7 @@ const atualizarProduto = async (req, res) => {
 
         const { categoria: categoriaProduto, imagem: imagemProduto } = produto.rows[0];
 
-        const produtoAtualizado = await query('update produtos set nome = $1, quantidade = $2, categoria = $3, preco = $4, descricao = $5, imagem =$6 where id = $7 and usuario_id = $8', [nome, quantidade, categoria ??categoriaProduto, preco, descricao, imagem ?? imagemProduto, id, usuario_id]);
+        const produtoAtualizado = await query('update produtos set nome = $1, quantidade = $2, categoria = $3, preco = $4, descricao = $5, imagem =$6 where id = $7 and usuario_id = $8', [nome, quantidade, categoria ??categoriaProduto, preco, descricao, imagem ?? imagemProduto, id, usuario.id]);
 
        
         return res.status(204).json();
