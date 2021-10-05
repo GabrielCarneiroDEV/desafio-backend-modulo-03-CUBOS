@@ -1,7 +1,7 @@
 const { query } = require("../conexao");
 
 const excluirProduto = async (req, res) => {
-    
+
     const { id } = req.params;
     const { usuario_id }= req.body;
 
@@ -27,7 +27,7 @@ const excluirProduto = async (req, res) => {
 
     } catch (error) {
         
-        return res.status(400).json({mensagem: error.message})
+        return res.status(400).json({mensagem: error.message});
 
     }
 

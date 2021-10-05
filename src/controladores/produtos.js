@@ -21,19 +21,23 @@ const listarProdutos = async (req, res) => {
 const obterProduto = async (req, res) => {
 
     const { id } = req.params;
-    const { id: usuario_id } = req.usuario
+    const { id: usuario_id } = req.usuario;
    
     try {
 
         const encontrarProduto = await query('select * from produtos where id = $1', [id]);
+
         if(encontrarProduto.rowCount === 0){
+
             return res.status(404).json({mensagem: "produto não encontrado"});
         }
 
 
         const produto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
+
         if (produto.rowCount === 0){
-            return res.status(401).json({mensagem: "você não tem autorização para acessar o produto"})
+
+            return res.status(401).json({mensagem: "você não tem autorização para acessar o produto"});
         }
         
 

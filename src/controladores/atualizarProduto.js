@@ -4,7 +4,7 @@ const { validarProdutos } = require("./validacao");
 const atualizarProduto = async (req, res) => {
 
     const { id } = req.params;
-    const { id: usuario_id } = req.usuario
+    const { id: usuario_id } = req.usuario;
 
     const erro = validarProdutos(req.body);
 
@@ -18,13 +18,14 @@ const atualizarProduto = async (req, res) => {
     try {
 
         const verificarProduto = await query('select * from produtos where id = $1', [id]);
+
         if(verificarProduto.rowCount === 0){
 
             return res.status(404).json({mensagem:"Produto não encontrado"});
 
         }
 
-        const produto = await query(' select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
+        const produto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
 
         if(produto.rowCount === 0){
             return res.status(401).json({mensagem: "Você não tem autorização para modificar o produto."});
@@ -39,7 +40,7 @@ const atualizarProduto = async (req, res) => {
         
     } catch (error) {
 
-        res.status(400).json({mensagem: error.message})
+        res.status(400).json({mensagem: error.message});
         
     }
     
@@ -47,5 +48,7 @@ const atualizarProduto = async (req, res) => {
 }
 
 module.exports ={
+
     atualizarProduto
+
 }
