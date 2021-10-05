@@ -2,8 +2,14 @@ const { query } = require("../conexao");
 const { validarProdutos } = require("./validacao");
 
 const atualizarProduto = async (req, res) => {
+   if(!req.params){
+
+       return res.status(400).json()
+
+   }
 
     const { id } = req.params;
+    
     const { id: usuario_id } = req.usuario;
 
     const erro = validarProdutos(req.body);

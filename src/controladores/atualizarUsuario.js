@@ -3,7 +3,9 @@ const { validarCadastro } = require("./validacao");
 const bcrypt = require('bcrypt');
 
 const atualizarUsuario = async (req, res) => {
+  
     const { id } = req.usuario;
+ 
     const { nome, email, senha, nome_loja } = req.body;
 
     const erro = validarCadastro(req.body);

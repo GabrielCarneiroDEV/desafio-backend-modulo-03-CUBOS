@@ -3,7 +3,8 @@ const { query } = require("../conexao");
 const excluirProduto = async (req, res) => {
 
     const { id } = req.params;
-    const { usuario_id }= req.body;
+    const { id: usuario_id }= req.usuario;
+    console.log(id, usuario_id)
 
     try {
 
