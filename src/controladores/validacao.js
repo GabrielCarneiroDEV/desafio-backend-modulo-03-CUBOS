@@ -16,11 +16,14 @@ const validarCadastro = (dadosUsuario) => {
 
 const validarLogin = (dadosLogin, usuarioEncontrado) => {
     if(!dadosLogin.email || !dadosLogin.senha){
+
         return ({mensagem: "Os campos email e senha são obrigatórios."});
     }
 
     if(usuarioEncontrado === 0){
+
         return ({mensagem:"Usuário e/ou senha inválido(s)."});
+        
     }
 }
 

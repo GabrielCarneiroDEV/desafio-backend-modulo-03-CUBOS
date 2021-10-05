@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../jwt_secret')
+const jwtSecret = require('../jwt_secret');
 const { query } = require('../conexao');
 const { validarLogin } = require('./validacao.js');
 
@@ -17,11 +17,8 @@ const login = async (req, res) =>{
         const erro = validarLogin(req.body, rowCount);
 
         if(erro){
-            res.status(400);
     
-            res.json(erro);
-    
-            return;
+            return res.status(400).json(erro); 
         }
 
 
@@ -44,7 +41,7 @@ const login = async (req, res) =>{
         
       
     
-        return res.status(200).json(token);
+        return res.status(200).json({token:token});
 
     } catch (error) {
 

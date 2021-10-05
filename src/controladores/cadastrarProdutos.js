@@ -13,7 +13,6 @@ const cadastrarProduto = async (req, res) => {
     const { nome, quantidade, categoria, preco, descricao, imagem } = req.body;
 
    
-
     try {
 
 
@@ -21,13 +20,12 @@ const cadastrarProduto = async (req, res) => {
         
     } catch (error) {
 
-        return res.status(400).json({mensagem: error.message})
+        return res.status(400).json({mensagem: error.message});
         
     }
-    console.log(id)
 
 
-    return res.json()
+    return res.json();
 }
 
 module.exports ={

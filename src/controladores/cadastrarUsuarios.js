@@ -23,7 +23,7 @@ const cadastrarUsuario = async (req, res) => {
 
         if(usuario.rowCount > 0){
 
-            return res.status(400).json({mensagem: "Já existe usuário cadastrado com o e-mail informado."})
+            return res.status(400).json({mensagem: "Já existe usuário cadastrado com o e-mail informado."});
         }
 
         const senhaCriptografada = await bcrypt.hash(senha, 10);
@@ -31,10 +31,10 @@ const cadastrarUsuario = async (req, res) => {
         await query("insert into usuario (nome, email, senha, nome_loja) values ($1, $2, $3, $4)", [nome,email, senhaCriptografada, nome_loja]);
         
     } catch (error) {
-        res.status(400).json({mensagem: error.message})
+        res.status(400).json({mensagem: error.message});
     }
     
-    return res.status(201).json()
+    return res.status(201).json();
 }
 
 module.exports = {
