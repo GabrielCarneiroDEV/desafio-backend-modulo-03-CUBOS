@@ -6,14 +6,13 @@ const atualizarProduto = async (req, res) => {
 
     const { id } = req.params;
     
-    const { id: usuario_id } = req.usuario;
-
     const erro = validarProdutos(req.body);
 
     if(erro){
 
         return res.status(400).json(erro);
     }
+  
 
     const { nome, quantidade, categoria, preco, descricao, imagem } = req.body;
 
@@ -27,6 +26,8 @@ const atualizarProduto = async (req, res) => {
 
         }
 
+        const { id: usuario_id } = req.usuario;
+        
         const produto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
 
         if(produto.rowCount === 0){
