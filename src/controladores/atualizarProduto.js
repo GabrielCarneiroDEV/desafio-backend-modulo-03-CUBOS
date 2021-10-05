@@ -4,7 +4,7 @@ const { validarProdutos } = require("./validacao");
 const atualizarProduto = async (req, res) => {
 
     const { id } = req.params;
-    const { id:usuario_id } = req.usuario
+    const { id: usuario_id } = req.usuario
 
     const erro = validarProdutos(req.body);
 
