@@ -24,7 +24,7 @@ const excluirProduto = async (req, res) => {
 
 
         }
-        return res.status(200).json();
+        return res.status(204).json();
 
     } catch (error) {
         

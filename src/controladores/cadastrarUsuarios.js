@@ -32,7 +32,7 @@ const cadastrarUsuario = async (req, res) => {
         res.status(400).json({mensagem: error.message});
     }
     
-    return res.status(201).json();
+    return res.status(204).json();
 }
 
 module.exports = {

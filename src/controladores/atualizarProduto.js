@@ -2,11 +2,7 @@ const { query } = require("../conexao");
 const { validarProdutos } = require("./validacao");
 
 const atualizarProduto = async (req, res) => {
-   if(!req.params){
 
-       return res.status(400).json()
-
-   }
 
     const { id } = req.params;
     
@@ -42,7 +38,7 @@ const atualizarProduto = async (req, res) => {
         const produtoAtualizado = await query('update produtos set nome = $1, quantidade = $2, categoria = $3, preco = $4, descricao = $5, imagem =$6 where id = $7 and usuario_id = $8', [nome, quantidade, categoria ??categoriaProduto, preco, descricao, imagem ?? imagemProduto, id, usuario_id]);
 
        
-        return res.status(201).json();
+        return res.status(204).json();
         
     } catch (error) {
 
