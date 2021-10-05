@@ -17,6 +17,8 @@ const cadastrarProduto = async (req, res) => {
 
 
         const produtoCadastrado = await query("insert into produtos (usuario_id, nome, quantidade, categoria, preco, descricao, imagem) values ($1, $2, $3, $4, $5, $6, $7)", [id, nome, quantidade, categoria, preco, descricao, imagem]);
+
+        return res.status(201).json();
         
     } catch (error) {
 
@@ -25,7 +27,7 @@ const cadastrarProduto = async (req, res) => {
     }
 
 
-    return res.json();
+   
 }
 
 module.exports ={
