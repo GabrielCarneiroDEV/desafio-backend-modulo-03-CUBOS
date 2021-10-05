@@ -1,21 +1,21 @@
-CREATE DATABASE market_cubos;
+create database market_cubos;
 
-CREATE TABLE usuarios (
-  id SERIAL PRIMARY KEY,
-  nome TEXT NOT NULL,
-  nome_loja TEXT NOT NULL,
-  email TEXT NOT NULL,
-  senha TEXT NOT NULL
+
+create table if not exists usuarios (
+  id serial primary key,
+  nome text not null,
+  nome_loja text not null,
+  email text not null unique,
+  senha text not null
 );
 
-CREATE TABLE produtos (
-  id SERIAL PRIMARY KEY NOT NULL,
-  usuario_id INT REFERENCES usuario(id) NOT NULL,
-  nome TEXT NOT NULL,
-  quantidade INT NOT NULL,
-  categoria TEXT,
-  preco INT NOT NULL,
-  descricao TEXT NOT NULL,
-  imagem TEXT
-);
-
+create table if not exists produtos (
+  id serial primary key,
+  usuario_id integer not null references usuarios (id),
+  nome text not null,
+  quantidade integer not null,
+  categoria text,
+  preco integer not null,
+  descricao text not null,
+  imagem text
+); 
