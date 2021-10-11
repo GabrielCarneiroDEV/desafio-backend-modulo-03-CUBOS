@@ -1,1 +1,1 @@
-module.exports = "chavemuitosecreta"
+module.exports = "chavemuitosecreta";
