@@ -1,1 +1,1 @@
-module.exports = "chavemuitosecreta";
+module.exports = process.env.JWT_SECRET;

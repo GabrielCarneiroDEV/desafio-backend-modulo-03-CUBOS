@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const transporter = require("../nodemailer")
 const { knex } = require("../conexao");
 const { validarUsuario } = require("../filtros/validacoes.js");
 
@@ -28,6 +29,13 @@ const cadastrarUsuario = async (req, res) => {
       .insert({ nome, email, senha: senhaCriptografada, nome_loja })
       .returning()
       .debug();
+
+    transporter.sendMail({
+      from:"Gabriel <paratestarsmtp@gmail.com>",
+      to:email,
+      subject:"usuario cadastrado",
+      text:`Olá ${nome}, obrigado por efetuar o cadastro.`
+    });
 
     return res.status(201).json();
   } catch (error) {
