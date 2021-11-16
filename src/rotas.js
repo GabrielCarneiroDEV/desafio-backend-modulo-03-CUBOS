@@ -7,12 +7,12 @@ const cadastrarProdutos = require('./controladores/cadastrarProdutos');
 const atualizarProdutos = require('./controladores/atualizarProduto');
 const excluirProdutos = require('./controladores/excluirProdutos');
 const { getUsuario } = require('./controladores/usuarios');
-const { verificarLogin } = require('./controladores/verificarLogin');
+const { verificarLogin } = require('./filtros/verificarLogin');
 const rotas = express();
 
 
 
-rotas.post('/usuario', usuarios.cadastrarUsuario);
+rotas.post('/usuarios', usuarios.cadastrarUsuario);
 rotas.post('/login', login.login);
 
 rotas.use(verificarLogin);

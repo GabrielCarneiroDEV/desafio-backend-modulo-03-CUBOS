@@ -1,4 +1,4 @@
-const validarCadastro = (dadosUsuario) => {
+const validarUsuario = (dadosUsuario) => {
     if(!dadosUsuario.nome){
     return ({mensagem:"O campo nome é obrigatório."});
     }
@@ -14,16 +14,7 @@ const validarCadastro = (dadosUsuario) => {
 
 }
 
-const validarLogin = (dadosLogin, usuarioEncontrado) => {
 
-    if(!dadosLogin.email || !dadosLogin.senha){
-        return ({mensagem: "Os campos email e senha são obrigatórios."});
-    }
-
-    if(usuarioEncontrado === 0){
-        return ({mensagem:"Usuário e/ou senha inválido(s)."});
-    }
-}
 
 const validarProdutos = (produto) => {
     if(!produto.nome){
@@ -44,7 +35,6 @@ const validarProdutos = (produto) => {
 }
 
 module.exports = {
-    validarCadastro,
-    validarLogin,
+    validarUsuario,
     validarProdutos
 }

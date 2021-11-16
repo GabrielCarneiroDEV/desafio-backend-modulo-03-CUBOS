@@ -1,35 +1,40 @@
+const bcrypt = require("bcrypt");
+const { knex } = require("../conexao");
+const { validarUsuario } = require("../filtros/validacoes.js");
 
-const bcrypt = require('bcrypt');
-const { query } = require('../conexao');
-const { validarCadastro } = require('./validacao.js');
-
-//CADASTRAR USUARIO
 const cadastrarUsuario = async (req, res) => {
+  const { nome, email, senha, nome_loja } = req.body;
+  const erro = validarUsuario(req.body);
 
-    const { nome, email, senha, nome_loja } = req.body;
-    const erro = validarCadastro(req.body);
+  if (erro) {
+    return res.status(400).json(erro);
+  }
 
-    if(erro){    
-        return res.status(400).json(erro);
+  try {
+    const verificarEmail = await knex("usuarios")
+      .where({ email })
+      .first()
+      .returning();
+
+    if (verificarEmail) {
+      return res
+        .status(400)
+        .json({mensagem: "Já existe usuário cadastrado com o e-mail informado."});
     }
 
-    try {
-        const usuario = await query("select * from usuarios where email = $1", [email]);
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        if(usuario.rowCount > 0){
-            return res.status(400).json({mensagem: "Já existe usuário cadastrado com o e-mail informado."});
-        }
+    await knex("usuarios")
+      .insert({ nome, email, senha: senhaCriptografada, nome_loja })
+      .returning()
+      .debug();
 
-        const senhaCriptografada = await bcrypt.hash(senha, 10);
-        await query("insert into usuarios (nome, email, senha, nome_loja) values ($1, $2, $3, $4)", [nome,email, senhaCriptografada, nome_loja]);
-        
-    } catch (error) {
-        res.status(400).json({mensagem: error.message});
-    }  
-    
     return res.status(201).json();
-}
+  } catch (error) {
+    res.status(400).json({ mensagem: error.message });
+  } 
+};
 
 module.exports = {
-    cadastrarUsuario
-}
+  cadastrarUsuario,
+};

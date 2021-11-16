@@ -1,31 +1,36 @@
-const { query } = require("../conexao");
+const { knex } = require("../conexao");
 
 const excluirProduto = async (req, res) => {
+  const { id } = req.params;
+  const { id: usuario_id } = req.usuario;
 
-    const { id } = req.params;
-    const { id: usuario_id }= req.usuario;
-   
-    try {
+  try {
+    const verificarProduto = await knex("produtos")
+      .where({ id, usuario_id })
+      .first();
 
-        const verificarProduto = await query('select * from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
-
-        if(verificarProduto.rowCount === 0){
-            return res.status(404).json({mensagem: "Produto inexistente"});
-        }
-
-        const usuarioExcluido = await query('delete from produtos where id = $1 and usuario_id = $2', [id, usuario_id]);
-
-        if(usuarioExcluido.rowCount === 0){
-            return res.status(401).json({mensagem: "Você não tem autorização para excluir o produto."});
-        }
-
-        return res.status(204).json();
-
-    } catch (error) {
-        return res.status(400).json({mensagem: error.message});
+    if (!verificarProduto) {
+      return res.status(404).json({ mensagem: "Produto não encontrado."});
     }
-}
+
+    const produtoExcluido = await knex("produtos")
+      .del()
+      .where({ id })
+      .returning();
+
+    if (!produtoExcluido) {
+      return res
+        .status(500)
+        .json({
+          mensagem: "Não foi possível excluir produto, tente novamente."});
+    }
+
+    return res.status(204).json();
+  } catch (error) {
+    return res.status(400).json({ mensagem: error.message });
+  }
+};
 
 module.exports = {
-    excluirProduto
-}
+  excluirProduto,
+};
