@@ -35,7 +35,7 @@ const cadastrarUsuario = async (req, res) => {
       to:email,
       subject:"usuario cadastrado",
       text:`Olá ${nome}, obrigado por efetuar o cadastro.`
-    });
+    }); 
 
     return res.status(201).json();
   } catch (error) {

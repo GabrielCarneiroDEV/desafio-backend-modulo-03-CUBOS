@@ -9,7 +9,7 @@ const atualizarProduto = async (req, res) => {
   if (erro) {
     return res.status(400).json(erro);
   }
-  const { nome, quantidade, categoria, preco, descricao, imagem } = req.body;
+  const { nome, quantidade, categoria, preco, descricao } = req.body;
 
   try {
     const verificarProduto = await knex("produtos")
@@ -35,7 +35,7 @@ const atualizarProduto = async (req, res) => {
         categoria: categoria ?? categoriaProduto,
         preco,
         descricao,
-        imagem: imagem ?? imagemProduto,
+        imagem: imagemProduto,
       })
       .where({ usuario_id: usuario.id, id });
 
