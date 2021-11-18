@@ -2,16 +2,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../jwt_secret");
 const { knex } = require("../conexao");
+const schemaLoginUsuarios = require("../validacoes/schemaLoginUsuarios");
 
 const login = async (req, res) => {
   const { email, senha } = req.body;
-  if (!email || !senha) {
-    return res
-      .status(400)
-      .json({ mensagem: "Os campos email e senha são obrigatórios." });
-  }
 
   try {
+    await schemaLoginUsuarios.validate(req.body)
     const encontrarUsuario = await knex("usuarios").where({ email }).first();
 
     if (!encontrarUsuario) {

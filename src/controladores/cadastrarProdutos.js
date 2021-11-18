@@ -1,17 +1,18 @@
-const { validarProdutos } = require("../filtros/validacoes");
 const { knex } = require("../conexao");
+const schemaCadastroProdutos = require("../validacoes/schemaCadastroProdutos");
+const { uploadImagem } = require("./uploadImagem");
 
 const cadastrarProduto = async (req, res) => {
-  const erro = validarProdutos(req.body);
-
-  if (erro) {
-    return res.status(400).json(erro);
-  }
-
   const { id } = req.usuario;
-  const { nome, quantidade, categoria, preco, descricao, imagem } = req.body;
 
   try {
+    await schemaCadastroProdutos.validate(req.body);
+
+    if (req.body.imagem) {
+      await uploadImagem(req, res);
+    }
+
+    const { nome, quantidade, categoria, preco, descricao, imagem } = req.body;
     const produtoCadastrado = await knex("produtos").insert({
       usuario_id: id,
       nome,

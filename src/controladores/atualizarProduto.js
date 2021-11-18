@@ -1,17 +1,15 @@
 const { knex } = require("../conexao");
-const { validarProdutos } = require("../filtros/validacoes");
+
+const schemaCadastroProdutos = require("../validacoes/schemaCadastroProdutos");
 
 const atualizarProduto = async (req, res) => {
   const { usuario } = req;
   const { id } = req.params;
-  const erro = validarProdutos(req.body);
 
-  if (erro) {
-    return res.status(400).json(erro);
-  }
   const { nome, quantidade, categoria, preco, descricao } = req.body;
 
   try {
+    await schemaCadastroProdutos.validate(req.body);
     const verificarProduto = await knex("produtos")
       .where({ usuario_id: usuario.id, id })
       .first();

@@ -1,9 +1,7 @@
 const supabase = require("../supabase");
 
-const uploadImagem = async (req, res, next) => {
+const uploadImagem = async (req, res) => {
   const { nome, imagem } = req.body;
-
-  if(!imagem)next();
 
   const { nome: nomeUsuario } = req.usuario;
 
@@ -22,27 +20,19 @@ const uploadImagem = async (req, res, next) => {
     const { publicURL, error: errorPublicURL } = await supabase.storage
       .from(process.env.SUPABASE_BUCKET)
       .getPublicUrl(endPoint);
-      
 
     if (errorPublicURL) {
       return res.status(400).json(errorPublicURL.message);
     }
 
-    req.body.imagem = publicURL
-    next();
+    req.body.imagem = publicURL;
 
-    return res.json(publicURL);
-
-    
+    return;
   } catch (error) {
     return res.status(400).json(error.message);
   }
-
 };
-
-
 
 module.exports = {
   uploadImagem,
-  
 };

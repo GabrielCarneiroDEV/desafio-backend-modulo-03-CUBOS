@@ -1,18 +1,16 @@
 const { knex } = require("../conexao");
-const { validarUsuario } = require("../filtros/validacoes");
 const bcrypt = require("bcrypt");
+const schemaCadastroUsuario = require("../validacoes/schemaCadastroUsuarios");
 
 const atualizarUsuario = async (req, res) => {
   const { id } = req.usuario;
   const { nome, email, senha, nome_loja } = req.body;
-  const erro = validarUsuario(req.body);
-
-  if (erro) {
-    return res.status(400).json(erro);
-  }
 
   try {
-    const verificarEmail = await knex("usuarios").where({ email, id }).first();
+    await schemaCadastroUsuario.validate(req.body);
+
+    const verificarEmail = await knex("usuarios").where({ email }).first();
+  
 
     if (verificarEmail) {
       return res.status(400).json({
@@ -22,6 +20,7 @@ const atualizarUsuario = async (req, res) => {
     }
 
     const senhaCriptografada = await bcrypt.hash(senha, 10);
+    
     await knex("usuarios")
       .update({ nome, email, senha: senhaCriptografada, nome_loja })
       .where({ id: req.usuario.id })

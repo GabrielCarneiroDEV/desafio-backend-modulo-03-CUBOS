@@ -18,6 +18,8 @@
     "knex": "^0.95.14",
     "nodemailer": "^6.7.1",
     "pg": "^8.7.1",
-    "supervisor": "^0.12.0"
+    "supervisor": "^0.12.0",
+    "yup": "^0.32.11",
+    "yup-locales": "^1.2.0"
   }
 }
